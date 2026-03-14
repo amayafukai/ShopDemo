@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS shop_demo;
 USE shop_demo;
 
+-- Bảng người dùng
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -13,6 +14,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Bảng sản phẩm
 CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -23,6 +25,7 @@ CREATE TABLE products (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Bảng đơn hàng
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -34,6 +37,7 @@ CREATE TABLE orders (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+-- Bảng chi tiết đơn hàng
 CREATE TABLE order_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
@@ -44,9 +48,11 @@ CREATE TABLE order_details (
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
 
+-- Thêm admin mặc định
 INSERT INTO users (username, email, password, fullname, address, phone, is_admin) 
 VALUES ('admin', 'admin@shop.com', '123456', 'Admin', 'Admin Address', '0123456789', TRUE);
 
+-- Thêm sản phẩm mẫu
 INSERT INTO products (name, description, price, quantity, image_url) VALUES
 ('Laptop Dell XPS 13', 'Laptop mỏng nhẹ, hiệu suất cao', 25000000, 10, 'laptop1.jpg'),
 ('iPhone 14 Pro', 'Điện thoại thông minh cao cấp', 25000000, 15, 'iphone14.jpg'),
